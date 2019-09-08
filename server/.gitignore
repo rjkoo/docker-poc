@@ -1,0 +1,6 @@
+*.pyc
+*.swp
+app/__pycache__/
+config/__pycache__/
+instance/
+

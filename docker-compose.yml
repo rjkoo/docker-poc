@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+    nginx: # Handles routing; Routes traffic to the appropriate service
+        restart: 'always' # Critical service, always needs to restart
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx
+        ports:
+            - '8080:80'
+    postgres:
+        image: 'postgres:latest'
+
+    redis:
+        image: 'redis:latest'
+
+
+    celery:
+        build:
+            context: ./server
+            dockerfile: Dockerfile.dev 
+        command: celery worker -l info -A app.blueprints.contact.tasks
+        env_file:
+            - server/server.env
+        volumes:
+            - .:/server/app
+
+
+    api: # server
+        restart: 'on-failure'
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./server
+        volumes:
+            - ./server:/app
+        command: >
+            gunicorn -b 0.0.0.0:8000
+            --access-logfile -
+            --reload
+            "app.app:create_app()"
+        env_file: # Pull server environment variables from an .env file
+            - server/server.env
+
+        depends_on:
+            - postgres
+
+
+    client: # Treat the UI as a separate service.
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./client
+        volumes:
+            - /app/node_modules
+            - ./client:/app

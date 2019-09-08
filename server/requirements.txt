@@ -1,0 +1,31 @@
+# Obviously, Flask
+Flask==1.1.1
+werkzeug==0.15.3
+
+# Application server (for both dev and prod)
+gunicorn
+
+# Testing Code Coverage
+pytest
+pytest-cov
+flake8==2.5.4
+
+# Command line interface
+click==7.0
+
+# Static Security Analysis
+bandit
+
+# Extensions
+Flask-Mail==0.9.1
+
+# Data Modeling and ORM
+psycopg2==2.7.1
+Flask-SQLAlchemy
+
+# Data and workers
+redis==2.10.5
+celery==3.1.23
+
+# Security
+flask-seasurf
