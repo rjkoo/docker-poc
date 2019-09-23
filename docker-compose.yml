@@ -12,7 +12,12 @@ services:
         image: 'postgres:latest'
 
     redis:
-        image: 'redis:latest'
+        image: 'redis:3.0-alpine'
+        command: redis-server --requirepass devpassword
+        volumes:
+            - 'redis:/var/lib/redis/data'
+        ports:
+            - '6379:6379'
 
 
     celery:
@@ -52,3 +57,6 @@ services:
         volumes:
             - /app/node_modules
             - ./client:/app
+
+volumes:
+    redis:
