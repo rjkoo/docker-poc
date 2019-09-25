@@ -11,6 +11,4 @@ class ContactForm(object):
         pass
 
     def validate_on_submit(self):
-        self.__validate_email()
-        self.__validate_message()
         return True

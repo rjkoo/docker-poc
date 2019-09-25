@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import ContactPage from './ContactPage';
+import Profile from './Profile';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+
+import {Security, ImplicitCallback, SecureRoute } from '@okta/okta-react';
+import Home from './Home';
+import Login from './Login';
+import Protected from './Protected';
+import RegistrationForm from './RegistrationForm';
+
+import config from './app.config';
+
+function onAuthRequired({history}){
+    history.push('/login');
+}
+
+
 class App extends Component
 {
     state = {
@@ -11,6 +26,7 @@ class App extends Component
     };
 
     componentDidMount(){
+        console.log('URL: ' + config.url);
         this.setGreeting();
     }
 
@@ -22,46 +38,23 @@ class App extends Component
     render (){
       return (
         <Router>
-            <div className="App">
-              <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <a
-                  className="App-link"
-                  href="https://reactjs.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                { this.state.greeting}
-                </a>
-                <Link to='/contactpage'>Contact Form</Link>
-              </header>
-                <div>
-                    <Route exact path="/contactpage" component={ContactPage} />
-                    
-                </div>
-            </div>
+            <Security
+                issuer={config.url}
+                clientId={config.clientId}
+                redirectUri={config.redirectUri}
+                onAuthRequired={onAuthRequired}
+                pkce={true}>
+            
+                <Route path='/' exact={true} component={Home} />
+                <SecureRoute path='/protected' component={Protected} />
+                <SecureRoute path='/profile' component={Profile} />
+                <Route path='/login' render={() => <Login baseUrl='https://dev-956783.okta.com'/>} />
+                <Route path='/implicit/callback' component={ImplicitCallback} />
+                <Route path='/register' component={RegistrationForm} />
+                <Route path='/contact' component={ContactPage} />
+            </Security>
         </Router>
       );
     }
 }
-
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello, World!!
-        </a>
-      </header>
-    </div>
-  );
-}
-*/
 export default App;

@@ -26,17 +26,16 @@ MAIL_USE_TLS = True            # ^
 MAIL_USE_SSL = False
 MAIL_USERNAME = 'you@gmail.com' # This and line below are overwritten with
                                 # instance/settings.py config file
-MAIL_PASSWORD = 'awesomepassword'
+MAIL_PASSWORD = 'supersecurepasswordgoeshere'
 
 # Celery.
-RPASSWORD = os.environ['RPASSWORD']
+REDIS_PASSWORD = os.environ['REDIS_PASSWORD']
 REDIS_HOST = os.environ['REDIS_HOST']
 REDIS_PORT = os.environ['REDIS_PORT']
-broker_url_string = "redis://:%s@%s:%s/0" %(RPASSWORD, 
-                                               REDIS_HOST,
-                                               REDIS_PORT)
-CELERY_BROKER_URL = 'redis://:devpassword@redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://:devpassword@redis:6379/0'
+
+CELERY_BROKER_URL = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/0"
+
+CELERY_RESULT_BACKEND = f"redis://:{REDIS_PASSWORD}@{REDIS_HOST}:{REDIS_PORT}/0"
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
