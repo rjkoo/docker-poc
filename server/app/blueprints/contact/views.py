@@ -20,7 +20,7 @@ def index():
         email = request.form['email']
         message = request.form['message']
 
-        #deliver_contact_email.delay(email, message)
+        deliver_contact_email.delay(email, message)
         # Log
         print(f"contact.index Success. email={email} message={message}")
 
