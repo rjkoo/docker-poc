@@ -3,14 +3,18 @@ from celery import Celery
 from app.blueprints.page import page
 from app.blueprints.contact import contact
 from app.blueprints.user import user
+from app.blueprints.user.models import User
+
 from app.extensions import (
     db,
     mail,
-    csrf
+    csrf,
+    login_manager
 )
 
 CELERY_TASK_LIST = [
-    'app.blueprints.contact.tasks'
+    'app.blueprints.contact.tasks',
+    'app.blueprints.user.tasks'
 ]
 
 def create_celery_app(app=None):
@@ -88,5 +92,6 @@ def extensions(app):
     mail.init_app(app)
     db.init_app(app)
     csrf.init_app(app)
+    login_manager.init_app(app)
 
     return None

@@ -9,7 +9,14 @@ services:
         ports:
             - '8080:80'
     postgres:
-        image: 'postgres:latest'
+        image: 'postgres:11.5-alpine'
+        container_name: 'database'
+        env_file:
+            - 'server/server.env'
+        volumes:
+            - 'pg_data:/var/lib/postgresql/data'
+        ports: 
+            - '5432:5432'
 
     redis:
         image: 'redis:3.0-alpine'
@@ -60,3 +67,4 @@ services:
 
 volumes:
     redis:
+    pg_data:

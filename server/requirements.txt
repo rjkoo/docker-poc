@@ -18,10 +18,11 @@ bandit
 
 # Extensions
 Flask-Mail==0.9.1
+Flask-Login==0.3.2
 
 # Data Modeling and ORM
 psycopg2==2.7.1
-Flask-SQLAlchemy
+Flask-SQLAlchemy==2.1
 
 # Data and workers
 redis==3.2.1
