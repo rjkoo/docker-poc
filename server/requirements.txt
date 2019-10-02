@@ -23,6 +23,7 @@ Flask-Login==0.3.2
 # Data Modeling and ORM
 psycopg2==2.7.1
 Flask-SQLAlchemy==2.1
+sqlalchemy-utils
 
 # Data and workers
 redis==3.2.1

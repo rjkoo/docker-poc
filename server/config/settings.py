@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 DEBUG = True
 HELLO = 'Hello, World! - (Find this string in the Main Config)'
@@ -34,17 +35,18 @@ CELERY_REDIS_MAX_CONNECTIONS = 5
 
 
 # SQLAlchemy
-PG_USER = os.environ['PG_USER']
-PG_PASSWORD = os.environ['PG_PASSWORD']
-PG_HOST = os.environ['PG_HOST']
-PG_PORT = os.environ['PG_PORT']
-PG_DATABASE = os.environ['PG_HOST']
+PG_USER = os.environ['POSTGRES_USER']
+PG_PASSWORD = os.environ['POSTGRES_PASSWORD']
+PG_HOST = os.environ['POSTGRES_HOST']
+PG_PORT = os.environ['POSTGRES_PORT']
+PG_DATABASE = os.environ['POSTGRES_HOST']
 
 db_uri = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}"
-SQLAlCHEMY_DATABASE_URI = db_uri
+SQLALCHEMY_DATABASE_URI = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}:{PG_PORT}/{PG_DATABASE}"
+
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Seed User data
 SEED_ADMIN_EMAIL = 'dev@localhost.com'
 SEED_ADMIN_PASSWORD = 'devpassword'
-#REMEMBER_COOKIE_DURATION = timedelta(days=90)
+REMEMBER_COOKIE_DURATION = timedelta(days=90)
