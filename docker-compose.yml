@@ -3,6 +3,7 @@ version: '3'
 services:
     nginx: # Handles routing; Routes traffic to the appropriate service
         restart: 'always' # Critical service, always needs to restart
+        container_name: 'nginx'
         build:
             dockerfile: Dockerfile.dev
             context: ./nginx
@@ -20,6 +21,7 @@ services:
 
     redis:
         image: 'redis:3.0-alpine'
+        container_name: 'redis' 
         command: redis-server --requirepass devpassword
         volumes:
             - 'redis:/var/lib/redis/data'
@@ -28,6 +30,7 @@ services:
 
 
     celery:
+        container_name: 'celery'
         build:
             context: ./server
             dockerfile: Dockerfile.dev 
@@ -39,6 +42,7 @@ services:
 
 
     api: # server
+        container_name: 'api'
         restart: 'on-failure'
         build:
             dockerfile: Dockerfile.dev
@@ -58,6 +62,7 @@ services:
 
 
     client: # Treat the UI as a separate service.
+        container_name: 'client'
         build:
             dockerfile: Dockerfile.dev
             context: ./client

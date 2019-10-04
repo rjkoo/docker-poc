@@ -3,7 +3,15 @@ from celery import Celery
 from app.blueprints.page import page
 from app.blueprints.contact import contact
 from app.blueprints.user import user
+from app.blueprints.plan_of_work import plans
+
+# models
 from app.blueprints.user.models import User
+from app.blueprints.plan_of_work.models import ( 
+        PlanOfWork,
+        CriticalIssue
+)
+
 
 from app.extensions import (
     db,
@@ -62,6 +70,7 @@ def create_app(settings_override=None):
     app.register_blueprint(page)
     app.register_blueprint(contact)
     app.register_blueprint(user)
+    app.register_blueprint(plans)
     extensions(app)
     authentication(app, User)
 

@@ -1,13 +1,24 @@
 import click
+import random
+from faker import Faker
 from sqlalchemy_utils import database_exists, create_database
 
 from app.app import create_app
 from app.extensions import db
+
+# Models
 from app.blueprints.user.models import User
+from app.blueprints.plan_of_work.models import (
+        PlanOfWork,
+        CriticalIssue
+)
 
 # Create an app context for the database connection
 app = create_app()
 db.app = app
+
+# Create a faker instance
+fake = Faker()
 
 # Group decorator allows me to create a command with sub commands.
 @click.group()
@@ -64,6 +75,41 @@ def seed():
 
 
 @click.command()
+@click.option('--plan-count', default=3, help='Number of plans to make.')
+@click.option('--issue-count', default=3, help='Number of issues per plan')
+def seed_plans(plan_count, issue_count):
+    """
+    Seed the database with an initial Plan and Critical Issues.
+
+    :return: User Instance
+    """
+
+    for i in range(plan_count):
+        plan_of_work = {
+            'status': 'Draft',
+            'cohort': f"University of {fake.state()}",
+            'exec_summary': fake.text(),
+            'merit_peer_review': fake.text(),
+            'stakeholder_actions': fake.text(),
+            'stakeholder_id_methods': fake.text(),
+            'stakeholder_collection_method': fake.text(),
+            'stakeholder_how_considered': fake.text()
+        }
+
+        new_pow = PlanOfWork(**plan_of_work).save()
+
+        for j in range(1, issue_count+1):
+            critical_issue = {
+                'term': random.choice(['short', 'intermediate', 'long']),
+                'plan_id': new_pow.id,
+                'order': j,
+                'name': fake.sentence()
+            }
+
+            ci = CriticalIssue(**critical_issue).save()
+    return None
+
+@click.command()
 @click.option('--with-testdb/--no-with-testdb', default=False,
               help='Create a test db too?')
 # Context is special internal object that holds state relevate for the script
@@ -84,8 +130,11 @@ def reset(ctx, with_testdb):
                                               # arguments are forwarded directly
                                               # to the init function.
     ctx.invoke(seed) # In this case, invoke is passed a Click command function
+    ctx.invoke(seed_plans)
+
 
 # Add the commands to the group
 cli.add_command(init)
 cli.add_command(seed)
+cli.add_command(seed_plans)
 cli.add_command(reset)

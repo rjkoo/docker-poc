@@ -24,6 +24,7 @@ Flask-Login==0.3.2
 psycopg2==2.7.1
 Flask-SQLAlchemy==2.1
 sqlalchemy-utils
+faker==2.0.2
 
 # Data and workers
 redis==3.2.1
