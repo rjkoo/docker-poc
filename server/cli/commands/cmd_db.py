@@ -70,6 +70,7 @@ def seed():
         'password': app.config['SEED_ADMIN_PASSWORD']
     }
 
+    print("Seeding users.")
     # **params converts all the dictionary pairs to keyword arguments
     return User(**params).save()
 
@@ -84,9 +85,12 @@ def seed_plans(plan_count, issue_count):
     :return: User Instance
     """
 
+    status_options = ['Draft', 'Submission in Progress', 'NIFA Review']
+
     for i in range(plan_count):
         plan_of_work = {
-            'status': 'Draft',
+            'status': random.choice(status_options),
+            'year': fake.future_date(end_date="+4y", tzinfo=None).year,
             'cohort': f"University of {fake.state()}",
             'exec_summary': fake.text(),
             'merit_peer_review': fake.text(),
@@ -107,6 +111,7 @@ def seed_plans(plan_count, issue_count):
             }
 
             ci = CriticalIssue(**critical_issue).save()
+    print("Seeding plans of work.")
     return None
 
 @click.command()

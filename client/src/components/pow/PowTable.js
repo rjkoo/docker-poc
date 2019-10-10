@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-
+import Table from 'react-bootstrap/Table';
+import PowTableRows from './PowTableRows';
 export default class PowTable extends Component {
-    constructor(props){
-        super(props);
-    }
-
+    
     render(){
         return(
             <div className='pow-main'>
+                <Table striped hover>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Year</th>
+                            <th>Critical Issue Count</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <PowTableRows plans={this.props.plans}/>
+                </Table>
             </div>
         );
     }

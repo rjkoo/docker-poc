@@ -1,3 +1,4 @@
+from random import choice
 import datetime
 from lib.util_sqlalchemy import ResourceMixin, AwareDateTime
 from app.extensions import db
@@ -7,7 +8,7 @@ class PlanOfWork(ResourceMixin, db.Model):
     __tablename__ = 'plan_of_work'
 
     id = db.Column(db.Integer, primary_key=True) # Primary key
-
+    year = db.Column(db.Integer, nullable=False, default=2020)
     status = db.Column(db.String(120), default='Draft')
     cohort = db.Column(db.String(120), nullable=False)
     exec_summary = db.Column(db.Text)
@@ -23,6 +24,8 @@ class PlanOfWork(ResourceMixin, db.Model):
     @property
     def serialize(self):
         return {
+                    'id': self.id,
+                    'year': self.year,
                     'status': self.status,
                     'cohort': self.cohort,
                     'summary': self.exec_summary,
@@ -32,7 +35,8 @@ class PlanOfWork(ResourceMixin, db.Model):
                     'stakeholder_collection_method':
                         self.stakeholder_collection_method,
                     'stakeholder_how_considered':
-                    self.stakeholder_how_considered
+                    self.stakeholder_how_considered,
+                    'number_of_critical_issues': len(self.critical_issues)
                 }
 
 class CriticalIssue(ResourceMixin, db.Model):

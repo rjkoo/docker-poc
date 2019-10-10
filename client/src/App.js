@@ -37,7 +37,7 @@ class App extends Component
           <main> 
             <Route path='/' exact={true} component={PowHome} />
             <Route path='/contact' component={ContactPage} />
-        </main>
+          </main>
       );
     }
 }
