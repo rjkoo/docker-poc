@@ -4,11 +4,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
-
-import {Security, ImplicitCallback, SecureRoute } from '@okta/okta-react';
-import PowHome from './components/pow/PowHome';
-
 import config from './app.config';
+import {Security, ImplicitCallback, SecureRoute } from '@okta/okta-react';
+
+// Pages 
+import PowHome from './components/pow/PowHome';
+import PowEdit from './components/pow/edit/PowEdit';
 
 function onAuthRequired({history}){
     history.push('/login');
@@ -37,6 +38,7 @@ class App extends Component
           <main> 
             <Route path='/' exact={true} component={PowHome} />
             <Route path='/contact' component={ContactPage} />
+            <Route path='/edit/:id' component={PowEdit} />
           </main>
       );
     }

@@ -27,7 +27,7 @@ export default class PowHome extends Component {
         return(
             <Container>
                 <Jumbotron>
-                    <h1 className="text-center">Institutional Profile</h1>
+                    <h1 className="text-center">Plan Of Work</h1>
                 </Jumbotron>
                 <h3>University of NIFA Combined Research and Extension</h3>
                 <PowTable plans={this.state.plans}/>

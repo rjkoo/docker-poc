@@ -18,9 +18,10 @@ def show_plans():
     return jsonify([ p.serialize for p in pows])
 
 
-@plans.route('/plans/<int:id>')
-def show_single_plan(id):
-    return f"Plan with id: {id}"
+@plans.route('/plans/<int:plan_id>')
+def show_single_plan(plan_id):
+    pow = PlanOfWork.query.filter_by(id=plan_id).first()
+    return jsonify( pow.serialize )
 
 
 @plans.route('/plans/<int:id>/edit', methods=['POST'])
