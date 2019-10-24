@@ -1,16 +1,14 @@
-# docker-flask-boilerplate
-## What 
-A container-based boilerplate for flask applications. 
+# Docker Proof of Concept for Plan of Work
+## Description
+A small container-based application for demoing Docker capabilities to NIFA stakeholders.
 
-# Getting Started
-- Clone
-- docker-compose up --build
-- Visit http://localhost:8080
-- Access API calls directly with http://localhost:8080/api/hello
-
-# Disclaimer:
-This template was created as I learned containerization and their best practices; I am still adding improvements over time. In the meantime, use at your own discretion.
+## Requirements
+- Docker
 
 
-TODOS:
-- Handle CSRF between React and Flask form submissions
+## Building and Intstalling
+* Clone and change into directory `nifa-demo`
+* Build the containers with command: `docker-compose up --build`
+* Initialize Database: `docker-compose exec api app db init
+* Seed database with some plans: `docker-compose exec api app db reset`
+* Visit application in browser: `http://localhost:8080`
