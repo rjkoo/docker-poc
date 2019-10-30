@@ -7,7 +7,7 @@ A small container-based application for demoing Docker capabilities to NIFA stak
 
 
 ## Building and Intstalling
-* Clone and change into directory `nifa-demo`
+* Clone and change into directory `docker-poc`
 * Build the containers with command: `docker-compose up --build`
 * Initialize Database: `docker-compose exec api app db init`
 * Seed database with some plans: `docker-compose exec api app db reset`
