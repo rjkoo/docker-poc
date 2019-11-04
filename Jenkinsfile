@@ -1,4 +1,9 @@
-node {
-    stage 'Checkout'
-    println "Test with multi-branch pipeline."
+pipeline {
+    stages {
+        stage('Test'){
+            steps {
+                println "Hello, world. Test stage"
+            }    
+        }    
+    }
 }
