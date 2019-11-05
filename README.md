@@ -3,7 +3,7 @@
 A small container-based application for demoing Docker capabilities to NIFA stakeholders.
 
 ## Requirements
-- Docker CE
+- Docker CE 
 
 
 ## Building and Intstalling
