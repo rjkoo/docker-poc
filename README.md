@@ -27,7 +27,6 @@ Before a Blueprint can be used, it must be registered to the application. Exampl
 
 [More Information on Blueprints](https://flask.palletsprojects.com/en/1.0.x/blueprints/)
 
-
 ## Unit Tests (for API)
 Unit tests are located in server/tests. There are a number of sub-directories that correspond to Flask Blueprints used in the API. 
 
