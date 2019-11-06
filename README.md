@@ -15,14 +15,18 @@ A small container-based application for demoing Docker capabilities to NIFA stak
 
 
 ## Application Breakdown
-### Client/UI - A React-based UI located in `/client` directory
+#### Client/UI - A React-based UI located in `/client` directory
 
-### API - A Python/Flask Application in `/server`: Python/Flask Application
-**Blueprints** - Flask Blueprints provide a method of creating submodules for the API. Each module contains a set of routes (`views.py`) to map incoming requests to that segments of code. Models can also be
+### API - A Python/Flask Application in `/server`
+**Blueprints** - Flask Blueprints provide a method of creating submodules for the API. Each module contains a set of routes (`views.py`) to map incoming requests to that segments of code. Models are also defined in the 
 
 This application's modules can be found in: `server/app/blueprints/`
 
 
-## Running Unit Tests (for API)
-Run all tests 
+## Unit Tests (for API)
+Unit tests are located in server/tests. There are a number of sub-directories that correspond to Flask Blueprints used in the API. 
+
+Run all tests: `docker-compose exec api app test`
+
+Run a test for a specific module: `docker-compose exec api app test --blueprint <blueprint-name>`
 
