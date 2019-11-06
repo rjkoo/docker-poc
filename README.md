@@ -18,9 +18,14 @@ A small container-based application for demoing Docker capabilities to NIFA stak
 #### Client/UI - A React-based UI located in `/client` directory
 
 ### API - A Python/Flask Application in `/server`
+
 **Blueprints** - Flask Blueprints provide a method of creating submodules for the API. Each module contains a set of routes (`views.py`) to map incoming requests to that segments of code. Models are also defined in the 
 
 This application's modules can be found in: `server/app/blueprints/`
+
+Before a Blueprint can be used, it must be registered to the application. Examples of registering a blueprint can be seen in `server/app/app.py`.
+
+[More Information on Blueprints](https://flask.palletsprojects.com/en/1.0.x/blueprints/)
 
 
 ## Unit Tests (for API)
