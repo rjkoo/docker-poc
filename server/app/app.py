@@ -21,7 +21,6 @@ from app.extensions import (
 )
 
 CELERY_TASK_LIST = [
-    'app.blueprints.contact.tasks',
     'app.blueprints.user.tasks'
 ]
 
@@ -68,11 +67,9 @@ def create_app(settings_override=None):
 
     # Register App components via blueprints
     app.register_blueprint(page)
-    app.register_blueprint(contact)
     app.register_blueprint(user)
     app.register_blueprint(plans)
     extensions(app)
-    authentication(app, User)
 
 
     @app.route('/hello')
@@ -102,35 +99,4 @@ def extensions(app):
     db.init_app(app)
     csrf.init_app(app)
     login_manager.init_app(app)
-
-    return None
-
-
-def authentication(app, user_model):
-    """
-    Initialize the Flask-login extension(mutates the app passed int).
-
-    :param app: Flask application extention
-    :param user_model: Model that contains the authentication information
-    :type user_model: SQLAlchemy model
-    :return: None
-    """
-
-
-    # user_loader - sets the callback for reloading a user from the session.
-    # Take a user ID and return a user object, or None if the user doesn't exist
-    @login_manager.user_loader
-    def load_user(uid):
-        return user_model.query.get(uid)
-
-    @login_manager.token_loader
-    def load_token(token):
-        duration = app.config['REMEMBER_COOKIE_DURATION'].total_seconds()
-        serializer = URLSafeTimedSerializer(app.secret_key)
-
-        data = serializer.loads(token, max_age=duration)
-        user_uid = data[0]
-
-        return user_model.query.get(user_uid)
-
 
