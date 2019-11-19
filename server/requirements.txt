@@ -3,7 +3,7 @@ Flask==1.1.1
 werkzeug==0.15.3
 
 # Application server (for both dev and prod)
-gunicorn
+gunicorn==19.9.0
 
 # Testing Code Coverage
 pytest
